@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard - OnlineTourPlanner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-dark px-4 mb-4">
+    <span class="navbar-brand text-warning fw-bold">⚙️ Admin Control Center</span>
+    <a th:href="@{/logout}" class="btn btn-outline-light btn-sm">Logout</a>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm mb-4">
+                <h5>Add New Package</h5>
+                <form th:action="@{/admin/add-package}" th:object="${newTrip}" method="post">
+                    <input type="text" th:field="*{title}" class="form-control mb-2" placeholder="Package Title" required>
+                    <input type="text" th:field="*{destination}" class="form-control mb-2" placeholder="Destination" required>
+                    <input type="number" th:field="*{price}" class="form-control mb-2" placeholder="Price (INR)" required>
+                    <input type="number" th:field="*{days}" class="form-control mb-2" placeholder="Duration (Days)" required>
+                    <input type="text" th:field="*{flightDetails}" class="form-control mb-2" placeholder="Flight Inclusion" required>
+                    <input type="text" th:field="*{transferDetails}" class="form-control mb-2" placeholder="Transfer Details" required>
+                    <input type="text" th:field="*{hotelDetails}" class="form-control mb-2" placeholder="Hotel Details" required>
+                    <input type="text" th:field="*{imageUrl}" class="form-control mb-2" placeholder="Image URL">
+                    <textarea th:field="*{itinerary}" class="form-control mb-2" placeholder="Itinerary details..."></textarea>
+                    <button type="submit" class="btn btn-success w-100">Add Package</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card p-3 shadow-sm mb-4">
+                <h5>Existing Packages</h5>
+                <table class="table align-middle">
+                    <thead>
+                    <tr><th>Title</th><th>Price</th><th>Days</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${packages}">
+                        <td th:text="${p.title}"></td>
+                        <td>₹<span th:text="${p.price}"></span></td>
+                        <td th:text="${p.days}"></td>
+                        <td>
+                            <a th:href="@{'/admin/delete-package/' + ${p.id}}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card p-3 shadow-sm">
+                <h5>Customer Bookings Received</h5>
+                <table class="table table-striped">
+                    <thead>
+                    <tr><th>ID</th><th>Customer</th><th>Package</th><th>Amount</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="b : ${bookings}">
+                        <td th:text="${b.id}"></td>
+                        <td th:text="${b.customerName}"></td>
+                        <td th:text="${b.trip.title}"></td>
+                        <td>₹<span th:text="${b.amountPaid}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

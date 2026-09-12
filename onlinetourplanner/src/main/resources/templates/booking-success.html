@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Confirmed - OnlineTourPlanner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light p-4">
+<div class="container text-center" style="max-width: 600px;">
+    <div class="card shadow-sm border-0 p-4">
+        <div class="display-1 text-success">✅</div>
+        <h2 class="fw-bold mb-2">Booking Confirmed!</h2>
+        <p class="text-muted">An official booking receipt has been sent to <strong th:text="${booking.customerEmail}"></strong>.</p>
+
+        <div class="bg-light border rounded text-start p-3 my-3">
+            <p><strong>Booking Reference:</strong> #<span th:text="${booking.id}"></span></p>
+            <p><strong>Passenger Name:</strong> <span th:text="${booking.customerName}"></span></p>
+            <p><strong>Tour Title:</strong> <span th:text="${booking.trip.title}"></span></p>
+            <p><strong>Amount Paid:</strong> ₹<span th:text="${booking.amountPaid}"></span></p>
+            <p><strong>Flight Included:</strong> <span th:text="${booking.trip.flightDetails}"></span></p>
+            <p><strong>Hotel Included:</strong> <span th:text="${booking.trip.hotelDetails}"></span></p>
+        </div>
+
+        <a th:href="@{/user/dashboard}" class="btn btn-primary w-100">Return to Home</a>
+    </div>
+</div>
+</body>
+</html>

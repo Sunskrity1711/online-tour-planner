@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>WanderLuxe Tours - Online Tour Planner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { width: 100%; overflow-x: hidden; background-color: #0f172a; }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .navbar-custom {
+            padding: 20px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .brand-logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            margin: 0 18px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #00d2d3; }
+
+        .btn-cyan {
+            background-color: #00d2d3;
+            color: white !important;
+            border-radius: 20px;
+            padding: 8px 24px !important;
+            font-weight: 700;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-cyan:hover { background-color: #01a3a4; }
+
+        .hero-content {
+            padding-left: 80px;
+            color: white;
+            max-width: 650px;
+        }
+        .script-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 3.8rem;
+            color: #ffffff;
+            margin-bottom: -10px;
+        }
+        .main-title {
+            font-size: 3.4rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hero-desc {
+            font-size: 0.9rem;
+            opacity: 0.92;
+            margin: 15px 0 25px 0;
+            line-height: 1.6;
+        }
+
+        .bottom-search-container {
+            background: white;
+            padding: 20px 40px;
+            margin: 0 60px 30px 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        .contact-section {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 70px 60px 40px 60px;
+            border-top: 4px solid #00d2d3;
+        }
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .required-star { color: #ef4444; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="hero-section">
+    <!-- Top Navbar -->
+    <nav class="navbar-custom">
+        <div class="d-flex align-items-center">
+            <a href="#" class="brand-logo"><i class="fa-solid fa-compass text-info me-2"></i>WanderLuxe Tours</a>
+        </div>
+        <div class="nav-links d-flex align-items-center">
+            <a href="#">Home</a>
+            <a href="#contact-us">Contact Us</a>
+            <a th:href="@{/signup}" class="fw-bold text-dark">Sign Up</a>
+            <button data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-cyan ms-3"><i class="fa-solid fa-user me-2"></i>Log In</button>
+        </div>
+    </nav>
+
+    <!-- Center Hero Text -->
+    <div class="hero-content">
+        <div class="script-title">Say yes</div>
+        <div class="main-title">TO YOUR VACATION</div>
+        <p class="hero-desc">Plan seamlessly with WanderLuxe Tours. Handcrafted all-inclusive travel packages bundling round-trip flights, luxury hotel stays, and private transfers.</p>
+        <button data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-cyan btn-lg rounded-0 px-4 fw-bold">FIND OUT MORE</button>
+    </div>
+
+    <!-- Bottom Search Bar -->
+    <div class="bottom-search-container">
+        <form class="row g-3 align-items-center">
+            <div class="col-md-3">
+                <label class="small text-muted fw-bold">From <span class="required-star">*</span></label>
+                <input type="text" class="form-control border-0 bg-light" placeholder="Mumbai / Delhi" required>
+            </div>
+            <div class="col-md-3">
+                <label class="small text-muted fw-bold">To <span class="required-star">*</span></label>
+                <input type="text" class="form-control border-0 bg-light" placeholder="Goa / Manali / Paris" required>
+            </div>
+            <div class="col-md-3">
+                <label class="small text-muted fw-bold">Travel Date <span class="required-star">*</span></label>
+                <input type="date" class="form-control border-0 bg-light" required>
+            </div>
+            <div class="col-md-3">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-cyan w-100 py-2 fw-bold text-uppercase">SEARCH PACKAGES</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Contact Us / Footer Section -->
+<div id="contact-us" class="contact-section">
+    <div class="container-fluid">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <h4 class="fw-bold text-white mb-3"><i class="fa-solid fa-compass text-info me-2"></i>WanderLuxe Tours</h4>
+                <p class="text-secondary small leading-relaxed">
+                    WanderLuxe Tours is your premium online tour planner platform. We curate complete, stress-free travel packages including flights, airport transfers, hotel accommodations, and customizable itineraries.
+                </p>
+                <p class="text-secondary small m-0">Designed & Developed for Online Tour Planning & Management.</p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <h5 class="fw-bold text-info mb-3"><i class="fa-solid fa-headset me-2"></i>Get In Touch</h5>
+                    <p class="mb-2"><i class="fa-solid fa-envelope text-info me-2"></i> <strong>Support Email:</strong> support@wanderluxetours.com</p>
+                    <p class="mb-2"><i class="fa-solid fa-phone text-info me-2"></i> <strong>Toll-Free Helpline:</strong> +91 (800) 123-4567</p>
+                    <p class="mb-0"><i class="fa-solid fa-location-dot text-info me-2"></i> <strong>Headquarters:</strong> Tech Park Avenue, Suite 402, India</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <h5 class="fw-bold text-info mb-3"><i class="fa-solid fa-heart me-2"></i>About the Platform</h5>
+                    <p class="text-secondary small mb-2">
+                        Built with Spring Boot, Hibernate JPA, Thymeleaf, and JavaMailSender to provide real-time package booking, dynamic admin controls, and automated email receipts.
+                    </p>
+                    <span class="badge bg-cyan text-white p-2 mt-2">v1.0 Ready</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4 border-secondary opacity-25">
+        <div class="text-center text-secondary small">
+            © 2026 WanderLuxe Tours. All rights reserved.
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold">Log In to WanderLuxe Tours</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Registration Success Alert -->
+                <div th:if="${showSignupSuccess}" class="alert alert-success small mb-3">
+                    ✅ Registration successful! Please log in with your credentials.
+                </div>
+                <!-- Login Error Alert -->
+                <div th:if="${loginError}" class="alert alert-danger small mb-3">
+                    ❌ Invalid username or password! Please check your credentials or Sign Up.
+                </div>
+
+                <form th:action="@{/login}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Username <span class="required-star">*</span></label>
+                        <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password <span class="required-star">*</span></label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Login As <span class="required-star">*</span></label>
+                        <select name="role" class="form-select" required>
+                            <option value="USER">🧳 Traveler / User</option>
+                            <option value="ADMIN">⚙️ System Administrator</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-cyan w-100 fw-bold py-2">Log In Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Script to auto-open login popup modal after sign up or when clicking 'Already have an account' -->
+<script th:if="${autoOpenLogin}">
+    document.addEventListener("DOMContentLoaded", function() {
+        var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+    });
+</script>
+</body>
+</html>
